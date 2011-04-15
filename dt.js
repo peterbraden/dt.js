@@ -5,6 +5,7 @@
 //  * Timezone.js : https://github.com/mde/timezone-js
 //  * ISO 8601 / RFC 3339
 //  * Python's datetime, in particular strftime
+//  * https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date
 //
 //  Maintains compatability with native js Date
 //  Compatable with browser & server js environments.
