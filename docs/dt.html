@@ -1,0 +1,54 @@
+<!DOCTYPE html>  <html> <head>   <title>dt.js</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               dt.js             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>               <p>DT.js -> Date Replacement</p>
+
+<p>Drawing from:
+ * datejs : http://code.google.com/p/datejs/
+ * Timezone.js : https://github.com/mde/timezone-js
+ * ISO 8601 / RFC 3339
+ * Python's datetime, in particular strftime</p>
+
+<p>Maintains compatability with native js Date
+ Compatable with browser &amp; server js environments.</p>
+
+<p>Examples:</p>
+
+<p>var d = DT.strptime('18 Jun 2001 at 11pm', '%d %b %Y at %I%p');</p>
+
+<p>d.toISO()
+   // returns '2001-06-18T23:00:00Z'</p>
+
+<p>d.setTZ(4) // TZ is difference from UTC. unless specified, all DT are UTC.</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  </pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <h3>CONSTANTS</h3>             </td>             <td class="code">               <div class="highlight"><pre><span class="kd">var</span> <span class="nx">second</span> <span class="o">=</span> <span class="mi">1</span>
+  <span class="p">,</span> <span class="nx">minute</span> <span class="o">=</span> <span class="mi">60</span> <span class="o">*</span> <span class="nx">second</span>
+  <span class="p">,</span> <span class="nx">hour</span> <span class="o">=</span> <span class="mi">60</span> <span class="o">*</span> <span class="nx">minute</span>
+  <span class="p">,</span> <span class="nx">day</span> <span class="o">=</span> <span class="mi">24</span> <span class="o">*</span> <span class="nx">hour</span>
+  <span class="p">,</span> <span class="nx">monthsAbbr</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;jan&#39;</span><span class="p">,</span> <span class="s1">&#39;feb&#39;</span><span class="p">,</span> <span class="s1">&#39;mar&#39;</span><span class="p">,</span> <span class="s1">&#39;apr&#39;</span><span class="p">,</span> <span class="s1">&#39;may&#39;</span><span class="p">,</span> <span class="s1">&#39;jun&#39;</span><span class="p">,</span> <span class="s1">&#39;jul&#39;</span><span class="p">,</span> <span class="s1">&#39;aug&#39;</span><span class="p">,</span> <span class="s1">&#39;sep&#39;</span><span class="p">,</span> <span class="s1">&#39;oct&#39;</span><span class="p">,</span> <span class="s1">&#39;nov&#39;</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">]</span>
+
+  </pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <h3>DT.constructor</h3>             </td>             <td class="code">               <div class="highlight"><pre><span class="kd">var</span> <span class="nx">DT</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    
+  <span class="k">return</span> <span class="p">{</span>
+  
+  
+    </pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>Unless specified, DT's are UTC. This method allows us to adjust the TZ
+ offset thus:</p>
+
+<pre><code> DT('2011-04-15T09:00:00Z').setTZ(-3.5)
+ =&gt; DT('2011-04-15T09:00:00-03:30')
+</code></pre>
+
+<p>If you want to adjust the TZ, whilst maintaining the same time, use moveTZ().
+ To set a timezone whilst creating a time, see DT#constructor</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">setTZ</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(){</span></pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <p>TODO</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="p">}</span>  
+    </pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <p>moveTZ changes the timezone whilst maintaining the same 'time', thus:</p>
+
+<pre><code> DT('2011-04-15T18:30:00Z').setTZ(4)
+ // =&gt; DT('22011-04-15T22:30:00+04:00')
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="p">,</span> <span class="nx">moveTZ</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(){</span></pre></div>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <p>TODO</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="p">}</span>  
+  
+  
+  <span class="p">}</span>  
+<span class="p">}</span>  
+  
+  
+  
+<span class="p">})();</span>  
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
