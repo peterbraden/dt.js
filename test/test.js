@@ -52,16 +52,19 @@ vows.describe('DT Object').addBatch({
 
   , 'create with Year, Month, Day, Hour, Minute, Second, Milli, TZ' : function(t){
       var d = dt(2021, 10, 9, 8, 7, 6, 5, -3.5)
-      assert.equal(d.toISOString(), '2021-11-09T08:07:06-3:30')
+      assert.equal(d.toISOString(), '2021-11-09T08:07:06-03:30')
     }
 
   } 
  
-, 'DT Methods' : {
+, 'DT Methods: 2011-04-15T14:21:30+04:00' : {
   topic : function(){
-    return new dt(2011, 04, 15, 14, 21, 30, 0)
+    return new dt(2011, 04, 15, 14, 21, 30, 0, 4)
   }  
-  , toISOString : function(){}
+  
+  , toISOString : function(d){
+    assert.equal(d.toISOString(), '2011-04-15T14:21:30+04:00')
+  }
   
   
   
