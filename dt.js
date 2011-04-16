@@ -31,17 +31,61 @@ var second = 1
   , day = 24 * hour
   , monthsAbbr = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
 
+// Try and work out whether d is a javascript date object.
+var isJsDate = function(d){
+  return !!(d && d.getDate)
+}
+
+//Make a UTC js date based on args
+var parseArguments = function(args){
   
+  if (args.length > 2 && args.length < 8)
+    return [new Date(Date.UTC.apply({}, args)), 0]
+    
+  switch (args.length){
+    case 0:
+      //TODO - now;
+      break;
+    
+    case 1:
+      var d = args[0]
+      if (typeof d === "number")
+        return [new Date(d), 0]
+        
+      if (isJsDate(d)){
+        return [new Date(Date.UTC(
+                  d.getUTCFullYear()
+                , d.getUTCMonth()
+                , d.getUTCDate()
+                , d.getUTCHours()
+                , d.getUTCMinutes()
+                , d.getUTCSeconds()
+                , d.getMilliseconds()))
+                , d.getTimezoneOffset() / minute]
+      }  
+      break
+    
+    
+  }
+  return []//TODO Raise appropriate error
+}  
+
+// Pad a number with a 0  
+function pad(n){
+  return n<10 ? '0'+n : n
+}
+
 
 // ### DT.constructor ###
 var DT = function(){
-  var jsDate;
+  var parsed = parseArguments(arguments)
+    , jsDate = parsed[0]
+    , tz = parsed[1] // Timezone offset, hours.
   
-  if (arguments.length > 2 && arguments.length < 8)
-    jsDate = new Date(Date.UTC.apply({}, arguments))
-  
-    
+  delete parsed
+
   return {
+    dt : true
 
 
   
@@ -54,8 +98,8 @@ var DT = function(){
 //
 //  If you want to adjust the TZ, whilst maintaining the same time, use moveTZ().
 //  To set a timezone whilst creating a time, see DT#constructor
-    setTZ : function(){
-      // TODO
+  , setTZ : function(tz){
+      tz = tz; 
     }  
     
 //  moveTZ changes the timezone whilst maintaining the same 'time', thus:
@@ -75,12 +119,30 @@ var DT = function(){
     
 //  format according to ISO 8601
   , toISOString : function(){
-    //TODO
+    if (tz === 0){
+      return jsDate.getUTCFullYear()+'-'
+         + pad(jsDate.getUTCMonth()+1)+'-'
+         + pad(jsDate.getUTCDate())+'T'
+         + pad(jsDate.getUTCHours())+':'
+         + pad(jsDate.getUTCMinutes())+':'
+         + pad(jsDate.getUTCSeconds())+'Z'
+      } 
+    //TODO - timezones
+    console.log("!! ERROR !! TZ TODO:", tz)
     }
-  , getTimezoneOffset: function () {}
-  , clone : function(){}
+    
+  , getTimezoneOffset: function () {
+    return tz;
+    }
+    
+  , clone : function(){
+      return DT(jsDate);
+    }
+    
   , isBefore : function(){}
+  
   , isAfter : function(){}
+
   , difference : function(){}
   
   , jsDate : function(){

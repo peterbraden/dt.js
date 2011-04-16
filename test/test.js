@@ -9,13 +9,13 @@ vows.describe('DT Object').addBatch({
     
     'create with js Date' : function(t){
       var d = dt(new Date(Date.UTC(2011, 03, 15, 14, 06, 00)))
-      assert.equal(d.jsDate(), new Date(Date.UTC(2011, 03, 15, 14, 06, 00)));
-      assert.equal(d.getISOString(), '2011-04-15T14:06:00Z')
+      assert.equal(d.jsDate() - new Date(Date.UTC(2011, 03, 15, 14, 06, 00)), 0);
+      // Cannot test ISO string, as we don't know what timezone these tests are being run in
     }
   
   , 'create with milliseconds' : function(t){
     var d = dt(1000 * 60 * 60)
-    assert.equal(d.jsDate(), new Date(1000 * 60 * 60));
+    assert.equal(d.jsDate() - new Date(1000 * 60 * 60), 0);
   }
   
   , 'create with IETF-compliant RFC 1123 timestamps' : function(t){
@@ -47,8 +47,13 @@ vows.describe('DT Object').addBatch({
   , 'create with Year, Month, Day, Hour, Minute, Second, Milli' : function(t){
       var d = dt(2021, 10, 9, 8, 7, 6, 5)
       assert.equal(d.jsDate() - new Date(Date.UTC(2021, 10, 9, 8, 7, 6, 5)), 0);
+      assert.equal(d.toISOString(), '2021-11-09T08:07:06Z')
     }
 
+  , 'create with Year, Month, Day, Hour, Minute, Second, Milli, TZ' : function(t){
+      var d = dt(2021, 10, 9, 8, 7, 6, 5, -3.5)
+      assert.equal(d.toISOString(), '2021-11-09T08:07:06-3:30')
+    }
 
   } 
  
