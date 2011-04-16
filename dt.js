@@ -41,6 +41,9 @@ var parseArguments = function(args){
   
   if (args.length > 2 && args.length < 8)
     return [new Date(Date.UTC.apply({}, args)), 0]
+  
+  if (args.length === 8)
+    return [new Date(Date.UTC.apply({}, args)), args[7]]
     
   switch (args.length){
     case 0:
@@ -80,7 +83,7 @@ function pad(n){
 var DT = function(){
   var parsed = parseArguments(arguments)
     , jsDate = parsed[0]
-    , tz = parsed[1] // Timezone offset, hours.
+    , tz = parsed[1] || 0// Timezone offset, hours.
   
   delete parsed
 
@@ -119,16 +122,21 @@ var DT = function(){
     
 //  format according to ISO 8601
   , toISOString : function(){
-    if (tz === 0){
-      return jsDate.getUTCFullYear()+'-'
+      var t = (jsDate.getUTCFullYear()+'-'
          + pad(jsDate.getUTCMonth()+1)+'-'
          + pad(jsDate.getUTCDate())+'T'
          + pad(jsDate.getUTCHours())+':'
          + pad(jsDate.getUTCMinutes())+':'
-         + pad(jsDate.getUTCSeconds())+'Z'
+         + pad(jsDate.getUTCSeconds()))
+    
+      if (tz === 0){
+        return t + 'Z'
+      } else{
+        return t + ((tz>0)?'+':'-')
+          + pad(Math.abs(parseInt(tz))) + ":"
+          + pad(Math.abs((tz*60)%60))
       } 
-    //TODO - timezones
-    console.log("!! ERROR !! TZ TODO:", tz)
+
     }
     
   , getTimezoneOffset: function () {

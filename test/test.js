@@ -59,7 +59,7 @@ vows.describe('DT Object').addBatch({
  
 , 'DT Methods: 2011-04-15T14:21:30+04:00' : {
   topic : function(){
-    return new dt(2011, 04, 15, 14, 21, 30, 0, 4)
+    return dt(2011, 03, 15, 14, 21, 30, 0, 4)
   }  
   
   , toISOString : function(d){
