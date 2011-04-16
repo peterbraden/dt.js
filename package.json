@@ -1,0 +1,11 @@
+{"name": "dt",
+ "version": "0.0.1",
+ "main": "dt.js"
+ ,"description": "Dates and Times"
+ , "keywords": ["time", "date"]
+ , "homepage": "https://github.com/peterbraden/dt.js"
+ , "author": "Peter Braden <peterbraden@peterbraden.co.uk> (peterbraden.co.uk)"
+ , "repository": {"type" : "git", "url" : "git://github.com/peterbraden/dt.js.git"}
+ , "dependencies": {
+ }
+}

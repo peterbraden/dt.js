@@ -26,27 +26,27 @@ vows.describe('DT Object').addBatch({
     
   , 'create with Year, Month, Day' : function(t){
       var d = dt(1923, 5, 8)
-      assert.equal(d.jsDate(), new Date(Date.UTC(1923, 5, 8)));
+      assert.equal(d.jsDate() - new Date(Date.UTC(1923, 5, 8)), 0);
     }
 
   , 'create with Year, Month, Day, Hour' : function(t){
       var d = dt(2020, 12, 12)
-      assert.equal(d.jsDate(), new Date(Date.UTC(2020, 12, 12)));
+      assert.equal(d.jsDate() - new Date(Date.UTC(2020, 12, 12)), 0);
     }
 
   , 'create with Year, Month, Day, Hour, Minute' : function(t){
       var d = dt(1891, 4, 4, 13, 59)
-      assert.equal(d.jsDate(), new Date(Date.UTC(1891, 4, 4, 13, 59)));
+      assert.equal(d.jsDate() - new Date(Date.UTC(1891, 4, 4, 13, 59)), 0);
     }
   
   , 'create with Year, Month, Day, Hour, Minute, Second' : function(t){
       var d = dt(2013, 11, 23, 23, 59, 59)
-      assert.equal(d.jsDate(), new Date(Date.UTC(2013, 11, 23, 23, 59, 59)));
+      assert.equal(d.jsDate() - new Date(Date.UTC(2013, 11, 23, 23, 59, 59)), 0);
     }
     
   , 'create with Year, Month, Day, Hour, Minute, Second, Milli' : function(t){
       var d = dt(2021, 10, 9, 8, 7, 6, 5)
-      assert.equal(d.jsDate(), new Date(Date.UTC(2021, 10, 9, 8, 7, 6, 5)));
+      assert.equal(d.jsDate() - new Date(Date.UTC(2021, 10, 9, 8, 7, 6, 5)), 0);
     }
 
 

@@ -35,6 +35,11 @@ var second = 1
 
 // ### DT.constructor ###
 var DT = function(){
+  var jsDate;
+  
+  if (arguments.length > 2 && arguments.length < 8)
+    jsDate = new Date(Date.UTC.apply({}, arguments))
+  
     
   return {
 
@@ -77,8 +82,10 @@ var DT = function(){
   , isBefore : function(){}
   , isAfter : function(){}
   , difference : function(){}
-  , jsDate : function(){}
   
+  , jsDate : function(){
+      return jsDate;
+    }
   }  
 }  
   
