@@ -33,7 +33,7 @@ var second = 1
 
 // Try and work out whether d is a javascript date object.
 var isJsDate = function(d){
-  return !!(d && d.getDate)
+  return !!(d && d instanceof Date && !d.dt)
 }
 
 //Make a UTC js date based on args
@@ -87,7 +87,7 @@ var DT = function(){
   
   delete parsed
 
-  return {
+  var dt =  {
     dt : true
 
 
@@ -135,39 +135,59 @@ var DT = function(){
         return t + ((tz>0)?'+':'-')
           + pad(Math.abs(parseInt(tz))) + ":"
           + pad(Math.abs((tz*60)%60))
-      } 
+      }  
 
     }
     
   , getTimezoneOffset: function () {
-    return tz;
+      return tz;
     }
     
   , clone : function(){
       return DT(jsDate);
     }
     
-  , isBefore : function(){}
+  , isBefore : function(d){
+    return dt.difference(d) < 0 
+  }
   
-  , isAfter : function(){}
+  , isAfter : function(d){
+    return dt.difference(d) > 0 
+  }
 
-  , difference : function(){}
+  , difference : function(d){
+      return DT.Interval(jsDate - d.jsDate())
+    }
   
   , jsDate : function(){
       return jsDate;
     }
   }  
+  
+  return dt
 }  
   
 DT.strptime = function(){
   //TODO
 }  
 
-DT.today = function(){}  
-DT.parse = function(){} // 'Magic' version of strptime   
+DT.today = function(){
+  return DT()
+}  
 
-DT.Interval = function(secs){
-  var i = new Number(secs)  
+// 'Magic' version of strptime   
+DT.parse = function(){
+// TODO  
+}
+
+DT.Interval = function(millis){
+  var i = new Number(millis)
+  
+  i.seconds = function(){return parseInt(millis/(second * 1000))}
+  i.minutes = function(){return parseInt(millis/(minute * 1000))}
+  i.hours = function(){return parseInt(millis/(hour * 1000))}
+  i.days = function(){return parseInt(millis/(day * 1000))}
+  
   return i;
 }  
   

@@ -64,7 +64,11 @@ vows.describe('DT Object').addBatch({
   
   , toISOString : function(d){
     assert.equal(d.toISOString(), '2011-04-15T14:21:30+04:00')
-  }
+   }
+  , 'difference' : function(d){
+      assert.equal(d.difference(dt(2011,03,15,13,21,30,0,4)), 60*60*1000)
+      assert.equal(d.difference(dt(2011,03,15,13,21,30,0,4)).hours(), 1)
+    } 
   
   
   
